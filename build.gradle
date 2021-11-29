@@ -5,34 +5,72 @@ plugins {
 	id 'maven-publish'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'com.example.prueba'
+version = '0.0.3-snapshot'
 sourceCompatibility = '1.8'
 
+
+
+
 publishing {
-	repositories {
-		maven {
-			name = "GitHubPackages"
-			url = uri("https://maven.pkg.github.com/facephi/prueba-packages")
-			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-			}
+	publications {
+		publish(MavenPublication) {
+			artifact file("$buildDir/libs/hello-${version}.jar")
 		}
 	}
-	publications {
-		gpr(MavenPublication) {
-			from(components.java)
+	repositories {
+		maven {
+
+			setUrl(mavenRepository)
+
+			credentials {
+				username = gituser
+				password = gitpassword
+			}
 		}
 	}
 }
 
 dependencies {
+
+	implementation 'com.example.prueba:hello:0.0.2-snapshot'
+	compileClasspath('com.example.prueba:hello:0.0.2-snapshot')
+
+	implementation 'com.takashiharano:hello:1.1.0'
+	//implementation 'xd:test_proj:0.1'
+	//implementation 'mx.uam.ayd:proyecto:0.0.1-SNAPSHOT'
+	//compileClasspath('com.takashiharano:hello:1.1.0')
+	//implementation 'com.facephi.inphinite.paas:model:0.2.2-SNAPSHOT'
+
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation"com.example:package"
-}
 
+
+
+}
+/*
+dependencies {
+	implementation("com.example.prueba:hello:0.0.1-snapshot")
+}
+*/
 test {
 	useJUnitPlatform()
+}
+
+allprojects {
+	repositories {
+		// Use Maven Central for resolving dependencies.
+		mavenCentral()
+		google()
+
+		maven {
+
+			setUrl(mavenRepository)
+
+			credentials {
+				username = gituser
+				password = gitpassword
+			}
+		}
+	}
 }
