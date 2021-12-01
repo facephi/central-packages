@@ -5,7 +5,7 @@ plugins {
 	id 'maven-publish'
 }
 
-group = 'com.example.prueba'
+group = 'com.example.prueba.prueba2'
 version = '0.0.3-snapshot'
 sourceCompatibility = '1.8'
 
@@ -14,15 +14,26 @@ sourceCompatibility = '1.8'
 
 publishing {
 	publications {
+		//Aqui estará el link del repo donde querramos subir el paquete, el link está
+		//en gradle.properties
+		//The repo link will be placed here, the link is gradle.properties
+		//publishing("github.com/facephi/central-packages")
 		publish(MavenPublication) {
 			artifact file("$buildDir/libs/hello-${version}.jar")
 		}
 	}
+
 	repositories {
 		maven {
 
 			setUrl(mavenRepository)
 
+
+			//tus credenciales de github con su respectivo token, se modifica
+			//en gradle.properties
+
+			//your github username and your token, you have to modify
+			//gradle.properties
 			credentials {
 				username = gituser
 				password = gitpassword
@@ -33,14 +44,10 @@ publishing {
 
 dependencies {
 
+	//               groupid:artifactid:version
 	implementation 'com.example.prueba:hello:0.0.2-snapshot'
-	compileClasspath('com.example.prueba:hello:0.0.2-snapshot')
 
-	implementation 'com.takashiharano:hello:1.1.0'
-	//implementation 'xd:test_proj:0.1'
-	//implementation 'mx.uam.ayd:proyecto:0.0.1-SNAPSHOT'
-	//compileClasspath('com.takashiharano:hello:1.1.0')
-	//implementation 'com.facephi.inphinite.paas:model:0.2.2-SNAPSHOT'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -63,10 +70,18 @@ allprojects {
 		mavenCentral()
 		google()
 
+		//GitHub Packages
 		maven {
 
+			//Repo Link
 			setUrl(mavenRepository)
 
+
+			//tus credenciales de github con su respectivo token, se modifica
+			//en gradle.properties
+
+			//your github username and your token, you have to modify
+			//gradle.properties
 			credentials {
 				username = gituser
 				password = gitpassword
