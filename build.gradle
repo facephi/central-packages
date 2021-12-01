@@ -9,9 +9,6 @@ group = 'com.example.prueba.prueba2'
 version = '0.0.3-snapshot'
 sourceCompatibility = '1.8'
 
-
-
-
 publishing {
 	publications {
 		//Aqui estará el link del repo donde querramos subir el paquete, el link está
@@ -29,11 +26,12 @@ publishing {
 			setUrl(mavenRepository)
 
 
-			//tus credenciales de github con su respectivo token, se modifica
-			//en gradle.properties
-
-			//your github username and your token, you have to modify
-			//gradle.properties
+			/*
+			tus credenciales de github con su respectivo token, se modifica
+			en gradle.properties
+			your github username and your token, you have to modify
+			gradle.properties
+			*/
 			credentials {
 				username = gituser
 				password = gitpassword
@@ -45,7 +43,8 @@ publishing {
 dependencies {
 
 	//               groupid:artifactid:version
-	implementation 'com.example.prueba:hello:0.0.2-snapshot'
+	implementation 'com.example.prueba:hello:0.0.3-snapshot'
+	implementation 'com.example.prueba.prueba2:hello:0.0.3-snapshot'
 
 
 
@@ -55,11 +54,7 @@ dependencies {
 
 
 }
-/*
-dependencies {
-	implementation("com.example.prueba:hello:0.0.1-snapshot")
-}
-*/
+
 test {
 	useJUnitPlatform()
 }
@@ -76,12 +71,15 @@ allprojects {
 			//Repo Link
 			setUrl(mavenRepository)
 
+			//Repo with packages
+			artifactUrls mavenPackageRepository
 
-			//tus credenciales de github con su respectivo token, se modifica
-			//en gradle.properties
-
-			//your github username and your token, you have to modify
-			//gradle.properties
+			/*
+			tus credenciales de github con su respectivo token, se modifica
+			en gradle.properties
+			your github username and your token, you have to modify
+			gradle.properties
+			*/
 			credentials {
 				username = gituser
 				password = gitpassword
