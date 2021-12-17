@@ -24,8 +24,6 @@ publishing {
 		maven {
 
 			setUrl(mavenRepository)
-
-
 			/*
 			tus credenciales de github con su respectivo token, se modifica
 			en gradle.properties
