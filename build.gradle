@@ -3,6 +3,35 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'maven-publish'
+	id 'de.undercouch.download' version '4.1.2'
+}
+
+task downloadZipFile( type: Download) {
+	src 'https://github.com/facephi/central-packages/raw/zip_packages/sdkonboardingflutter.zip'
+	dest buildDir
+}
+
+task unzipFiles(type: Copy) {
+	dependsOn 'downloadZipFile'
+
+
+	def zipFile = file("${buildDir}/sdkonboardingflutter.zip")
+	def outputDir = file("${buildDir}/unpacked/dist")
+
+	from zipTree(zipFile)
+	into outputDir
+
+}
+
+task downloadZipFileAndUnzip(type: Delete) {
+
+	dependsOn 'unzipFiles'
+
+	mustRunAfter 'unzipFiles'
+
+	delete fileTree("${buildDir}") {
+		include '**/*.zip'
+	}
 }
 
 group = 'com.example.prueba.prueba2'
