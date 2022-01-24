@@ -77,10 +77,13 @@ dependencies {
 	implementation 'com.facephi.phingers.android:phingers-camera:7.1.1'
 	implementation 'com.facephi.phingers.android:phingers-core:7.1.2'
 	//coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-	api 'androidx.constraintlayout:constraintlayout:2.0.4'
+	//api 'androidx.constraintlayout:constraintlayout:2.0.4'
 	//implementation "androidx.core:core-ktx:$kotlin_version"
 	//implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
+	implementation 'androidx.multidex:multidex:2.0.1'
+	implementation 'androidx.core:core-ktx:1.6.0'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0'
+	implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
 
 	implementation 'org.springframework.boot:spring-boot-starter'
