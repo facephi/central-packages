@@ -34,8 +34,7 @@ task downloadZipFileAndUnzip(type: Delete) {
 	}
 }
 
-group = 'com.example.prueba.prueba2'
-version = '0.0.6-snapshot'
+
 sourceCompatibility = '1.8'
 
 publishing {
@@ -45,7 +44,10 @@ publishing {
 		//The repo link will be placed here, the link is gradle.properties
 		//publishing("github.com/facephi/central-packages")
 		publish(MavenPublication) {
-			artifact file("$buildDir/libs/hello-${version}.jar")
+			groupId = 'com.facephi'
+			artifactId = 'paquete-manual'
+			version = '1.0.0'
+			artifact file("$buildDir/libs/phingers-widget-1.0.0.aar")
 		}
 	}
 
@@ -71,9 +73,13 @@ publishing {
 
 dependencies {
 
-	//               groupid:artifactid:version
-	implementation 'com.example.prueba:hello:0.0.3-snapshot'
-	implementation 'com.example.prueba.prueba2:hello:0.0.3-snapshot'
+	implementation "androidx.multidex:multidex:$multidex_version"
+	implementation 'com.facephi.phingers.android:phingers-camera:7.1.1'
+	implementation 'com.facephi.phingers.android:phingers-core:7.1.2'
+	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+	api 'androidx.constraintlayout:constraintlayout:2.0.4'
+	implementation "androidx.core:core-ktx:$kotlin_version"
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
 
