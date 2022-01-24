@@ -35,7 +35,7 @@ task downloadZipFileAndUnzip(type: Delete) {
 }
 
 group = 'com.example.prueba.prueba2'
-version = '0.0.3-snapshot'
+version = '0.0.6-snapshot'
 sourceCompatibility = '1.8'
 
 publishing {
@@ -62,8 +62,8 @@ publishing {
 			gradle.properties
 			*/
 			credentials {
-				username = gituser
-				password = gitpassword
+				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
 			}
 		}
 	}
@@ -110,8 +110,8 @@ allprojects {
 			gradle.properties
 			*/
 			credentials {
-				username = gituser
-				password = gitpassword
+				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
 			}
 		}
 	}
