@@ -1,144 +1,94 @@
-plugins {
-	id 'org.springframework.boot' version '2.6.0'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'maven-publish'
-	id 'de.undercouch.download' version '4.1.2'
+apply plugin: "com.android.library"
+apply plugin: "maven-publish"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 30
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
-
-task downloadZipFile( type: Download) {
-	src 'https://github.com/facephi/central-packages/raw/zip_packages/sdkonboardingflutter.zip'
-	dest buildDir
-}
-
-task unzipFiles(type: Copy) {
-	dependsOn 'downloadZipFile'
-
-
-	def zipFile = file("${buildDir}/sdkonboardingflutter.zip")
-	def outputDir = file("${buildDir}/unpacked/dist")
-
-	from zipTree(zipFile)
-	into outputDir
-
-}
-
-task downloadZipFileAndUnzip(type: Delete) {
-
-	dependsOn 'unzipFiles'
-
-	mustRunAfter 'unzipFiles'
-
-	delete fileTree("${buildDir}") {
-		include '**/*.zip'
-	}
-}
-
-
-sourceCompatibility = '1.8'
 
 publishing {
-	publications {
-		//Aqui estará el link del repo donde querramos subir el paquete, el link está
-		//en gradle.properties
-		//The repo link will be placed here, the link is gradle.properties
-		//publishing("github.com/facephi/central-packages")
-		publish(MavenPublication) {
-			groupId = 'com.facephi'
-			artifactId = 'paquete-manual'
-			version = '1.0.1'
-			artifact file("$buildDir/libs/phingers-widget-1.0.0.aar")
+    publications {
+        aar(MavenPublication) {
+            groupId = 'com.facephi'
+            artifactId = 'paquete-manual'
+            version = '1.0.2'
+            artifact file("$buildDir/libs/phingers-widget-1.0.0.aar")
 
-			pom.withXml {
-					def dependenciesNode = asNode().appendNode('dependencies')
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
 
-					def configurations = [
-							project.configurations.implementation,
-							project.configurations.api
-					]
+                    def configurations = [
+                            project.configurations.implementation,
+                            project.configurations.api
+                    ]
 
-				configurations.compile.allDependencies.each {
-					def dependencyNode = dependenciesNode.appendNode('dependency')
-					dependencyNode.appendNode('groupId', it.group)
-					dependencyNode.appendNode('artifactId', it.name)
-					dependencyNode.appendNode('version', it.version)
-				}
-				}
+                    configurations.each { configuration ->
+                        configuration.allDependencies.each {
+                            if (it.name != 'unspecified' && it.group != rootProject.name) {
+                                def dependencyNode = dependenciesNode.appendNode('dependency')
+                                dependencyNode.appendNode('groupId', it.group)
+                                dependencyNode.appendNode('artifactId', it.name)
+                                dependencyNode.appendNode('version', it.version)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
 
-		}
-	}
-
-	repositories {
-		maven {
-
-			setUrl(mavenRepository)
-
-
-			/*
-			tus credenciales de github con su respectivo token, se modifica
-			en gradle.properties
-			your github username and your token, you have to modify
-			gradle.properties
-			*/
-			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-			}
-		}
-	}
+            url = uri("https://maven.pkg.github.com/facephi/central-packages")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
 }
 
 dependencies {
 
-	//implementation "androidx.multidex:multidex:$multidex_version"
-	implementation 'com.facephi.phingers.android:phingers-camera:7.1.1'
-	implementation 'com.facephi.phingers.android:phingers-core:7.1.2'
-	//coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-	//api 'androidx.constraintlayout:constraintlayout:2.0.4'
-	//implementation "androidx.core:core-ktx:$kotlin_version"
-	//implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	implementation 'androidx.multidex:multidex:2.0.1'
-	implementation 'androidx.core:core-ktx:1.6.0'
-	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0'
-	implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-
+    //implementation "androidx.multidex:multidex:$multidex_version"
+    implementation 'com.facephi.phingers.android:phingers-camera:7.1.1'
+    implementation 'com.facephi.phingers.android:phingers-core:7.1.2'
+    //coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+    //api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    //implementation "androidx.core:core-ktx:$kotlin_version"
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
 }
 
-test {
-	useJUnitPlatform()
-}
-
-allprojects {
-	repositories {
-		// Use Maven Central for resolving dependencies.
-		mavenCentral()
-		google()
-
-		//GitHub Packages
-		maven {
-
-			//Repo Link
-			setUrl(mavenRepository)
-
-			//Repo with packages
-			artifactUrls mavenPackageRepository
-
-			/*
-			tus credenciales de github con su respectivo token, se modifica
-			en gradle.properties
-			your github username and your token, you have to modify
-			gradle.properties
-			*/
-			credentials {
-				username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-				password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-			}
-		}
-	}
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2'
+    }
 }
