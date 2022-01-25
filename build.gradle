@@ -8,15 +8,12 @@ android {
     lintOptions {
         abortOnError false
     }
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -26,10 +23,19 @@ android {
 publishing {
     publications {
         aar(MavenPublication) {
-            groupId = 'com.facephi'
-            artifactId = 'paquete-manual'
-            version = '1.0.2'
-            artifact file("$buildDir/libs/phingers-widget-1.0.0.aar")
+
+            //INICIO MODIFICAR
+            //Especificamos el groupID, normalmente es com.facephi
+            groupId = 'como.facephi'
+            //Especificamos el artefacto
+            artifactId = 'hello'
+            //Especificamos la version
+            version = '1.0.1'
+            //Indicamos donde está el aar que queremos subir, se deberia
+            //poner en la carpeta build/libs
+            artifact file("$buildDir/libs/file.aar")
+            //FINAL MODIFICAR
+
 
             pom {
                 withXml {
@@ -67,21 +73,19 @@ publishing {
     }
 }
 
+
+//INICIO MODIFICAR
 dependencies {
 
-    //implementation "androidx.multidex:multidex:$multidex_version"
-    implementation 'com.facephi.phingers.android:phingers-camera:7.1.1'
-    implementation 'com.facephi.phingers.android:phingers-core:7.1.2'
-    //coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
-    //api 'androidx.constraintlayout:constraintlayout:2.0.4'
-    //implementation "androidx.core:core-ktx:$kotlin_version"
-    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //Aqui se indicarán las dependencias en caso de necesitar,
+    //las dependencias se importan como en el ejemplo de abajo
+
+    /*
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+     */
 
 }
+//FINAL MODIFICAR
 
 buildscript {
     repositories {
