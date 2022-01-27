@@ -8,10 +8,11 @@ configurations.maybeCreate("default")
 def publishArtifact = artifacts.add("default", file('file.aar'))
 
 //El group id, suele ser com.facephi
-ext.groupId = 'com.facephi'
+//El group id, suele ser com.facephi
+def group_id = 'com.facephi'
 
 //id del artefacto
-ext.artifactId = 'paquete3'
+def artifactid = 'paquete3'
 
 //version que queremos subir del mismo
 version = '1.0.1'
@@ -54,6 +55,8 @@ android {
 publishing {
     publications {
         aar(MavenPublication) {
+            groupId group_id
+            artifactId artifactid
             artifact publishArtifact
             pom {
                 withXml {
