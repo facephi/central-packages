@@ -1,1 +1,1 @@
-rootProject.name = 'Facephi-Packages'
+include ':app', ':paquete1', ':paquete2'

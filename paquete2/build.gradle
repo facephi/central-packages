@@ -1,0 +1,45 @@
+apply plugin: "maven-publish"
+
+configurations.maybeCreate("default")
+def publishArtifact = artifacts.add("default", file('fphi-selphid-extractor.aar'))
+
+
+publishing {
+    publications {
+          aar(MavenPublication) {
+              groupId = 'com.facephi'
+              artifactId = 'paquete1'
+              version = '1.0.0'
+              artifact publishArtifact
+          }
+/*
+        aar(MavenPublication) {
+            groupId = 'com.facephi'
+            artifactId = 'fphi-selphid-core'
+            version = '1.11.8'
+            artifact publishArtifact2
+        }
+*/
+/*
+        aar(MavenPublication) {
+            groupId = 'com.facephi'
+            artifactId = 'fphi-selphid-drawer'
+            version = '1.11.8'
+            artifact publishArtifact3
+        }
+*/
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+
+            url = uri("https://maven.pkg.github.com/facephi/central-packages")
+            credentials {
+                username = "abueno@facephi.com"
+                password = "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"
+            }
+        }
+    }
+}
+
+
