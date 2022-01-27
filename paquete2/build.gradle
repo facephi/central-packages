@@ -14,7 +14,7 @@ ext.groupId = 'com.facephi'
 ext.artifactId = 'paquete4'
 
 //version que queremos subir del mismo
-version = '1.0.0'
+version = '1.0.1'
 
 //El paquete final que se subiría siguiendo esta configuración quedaría tal que
 // com.facephi:paquete1:1.0.0
