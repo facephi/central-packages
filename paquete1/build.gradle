@@ -19,6 +19,7 @@ version = '1.0.0'
 //El paquete final que se subiría siguiendo esta configuración quedaría tal que
 // com.facephi:paquete1:1.0.0
 
+
 dependencies {
     //Aqui se indicarán las dependencias en caso de necesitar
     //Las dependencias se importan como en el ejemplo de abajo
