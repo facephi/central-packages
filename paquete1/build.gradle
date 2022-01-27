@@ -3,7 +3,23 @@ apply plugin: "com.android.library"
 
 
 configurations.maybeCreate("default")
+
+//MODIFICAR INICIO
 def publishArtifact2 = artifacts.add("default", file('fphi-core-widget-android.aar'))
+groupId = 'com.facephi'
+artifactId = 'paquete2'
+version = '1.0.0'
+
+dependencies {
+
+    //Aqui se indicarán las dependencias en caso de necesitar,
+    //las dependencias se importan como en el ejemplo de abajo
+
+    implementation "androidx.multidex:multidex:2.0.1"
+
+}
+
+//MODIFICAR FINAL
 
 
 android {
@@ -33,9 +49,7 @@ publishing {
     publications {
 
         aar(MavenPublication) {
-            groupId = 'com.facephi'
-            artifactId = 'paquete2'
-            version = '1.0.0'
+
             artifact publishArtifact2
             pom {
                 withXml {
@@ -74,14 +88,7 @@ publishing {
      }
     
 }
-dependencies {
 
-    //Aqui se indicarán las dependencias en caso de necesitar,
-    //las dependencias se importan como en el ejemplo de abajo
-
-    implementation "androidx.multidex:multidex:2.0.1"
-
-}
 
 
 

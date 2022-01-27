@@ -4,7 +4,9 @@ apply plugin: "com.android.library"
 
 configurations.maybeCreate("default")
 def publishArtifact2 = artifacts.add("default", file('fphi-core-widget-android.aar'))
-
+groupId = 'com.facephi'
+artifactId = 'paquete1'
+version = '1.0.0'
 
 android {
    
@@ -35,9 +37,6 @@ publishing {
 /*
 */
         aar(MavenPublication) {
-            groupId = 'com.facephi'
-            artifactId = 'paquete1'
-            version = '1.0.0'
             artifact publishArtifact2
             pom {
                 withXml {
@@ -80,8 +79,6 @@ dependencies {
 
     //Aqui se indicarán las dependencias en caso de necesitar,
     //las dependencias se importan como en el ejemplo de abajo
-
-
 
 }
 
