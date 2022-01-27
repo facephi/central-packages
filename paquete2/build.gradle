@@ -8,16 +8,17 @@ configurations.maybeCreate("default")
 def publishArtifact = artifacts.add("default", file('file.aar'))
 
 //El group id, suele ser com.facephi
-ext.group_id = 'com.facephi'
+ext.groupId = 'com.facephi'
 
 //id del artefacto
-ext.artifactId = 'paquete1'
+ext.artifactId = 'paquete4'
 
 //version que queremos subir del mismo
 version = '1.0.0'
 
 //El paquete final que se subiría siguiendo esta configuración quedaría tal que
 // com.facephi:paquete1:1.0.0
+
 
 dependencies {
     //Aqui se indicarán las dependencias en caso de necesitar
@@ -74,9 +75,9 @@ publishing {
                         }
                     }
                 }
+            }
         }
     }
-}
     repositories {
         maven {
             name = "GitHubPackages"
@@ -86,7 +87,7 @@ publishing {
                 password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
-     }
+    }
 }
 
 
