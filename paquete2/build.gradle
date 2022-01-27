@@ -1,45 +1,89 @@
 apply plugin: "maven-publish"
+apply plugin: "com.android.library"
+
 
 configurations.maybeCreate("default")
-def publishArtifact = artifacts.add("default", file('fphi-selphid-extractor.aar'))
+def publishArtifact2 = artifacts.add("default", file('fphi-core-widget-android.aar'))
+
+
+android {
+   
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    lintOptions {
+        abortOnError false
+    }
+    defaultConfig {
+
+        minSdkVersion 19
+        targetSdkVersion 30
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
 
 
 publishing {
     publications {
-          aar(MavenPublication) {
-              groupId = 'com.facephi'
-              artifactId = 'paquete1'
-              version = '1.0.0'
-              artifact publishArtifact
-          }
+
 /*
+*/
         aar(MavenPublication) {
             groupId = 'com.facephi'
-            artifactId = 'fphi-selphid-core'
-            version = '1.11.8'
+            artifactId = 'paquete1'
+            version = '1.0.0'
             artifact publishArtifact2
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    def configurations = [
+                            project.configurations.implementation,
+                            project.configurations.api
+                    ]
+
+                    configurations.each { configuration ->
+                        configuration.allDependencies.each {
+                            if (it.name != 'unspecified' && it.group != rootProject.name) {
+                                def dependencyNode = dependenciesNode.appendNode('dependency')
+                                dependencyNode.appendNode('groupId', it.group)
+                                dependencyNode.appendNode('artifactId', it.name)
+                                dependencyNode.appendNode('version', it.version)
+                            }
+                        }
+                    }
+                }
+            
         }
-*/
-/*
-        aar(MavenPublication) {
-            groupId = 'com.facephi'
-            artifactId = 'fphi-selphid-drawer'
-            version = '1.11.8'
-            artifact publishArtifact3
-        }
-*/
     }
+}
     repositories {
         maven {
             name = "GitHubPackages"
 
             url = uri("https://maven.pkg.github.com/facephi/central-packages")
             credentials {
-                username = "abueno@facephi.com"
-                password = "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"
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
-    }
+     }
+    
 }
+dependencies {
+
+    //Aqui se indicarán las dependencias en caso de necesitar,
+    //las dependencias se importan como en el ejemplo de abajo
+
+
+
+}
+
 
 

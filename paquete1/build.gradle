@@ -32,14 +32,6 @@ android {
 publishing {
     publications {
 
-/*
-        aar(MavenPublication) {
-            groupId = 'com.facephi'
-            artifactId = 'fphi-selphi-widget'
-            version = '5.7.3'
-            artifact publishArtifact
-        }
-*/
         aar(MavenPublication) {
             groupId = 'com.facephi'
             artifactId = 'paquete2'
