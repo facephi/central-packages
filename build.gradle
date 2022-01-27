@@ -1,6 +1,38 @@
 apply plugin: "com.android.library"
 apply plugin: "maven-publish"
 
+configurations.maybeCreate("default")
+
+//INICIO MODIFICAR
+
+//Indicar el nombre del aar que vamos a subir, debe de estar en el directorio root
+def publishArtifact = artifacts.add("default", file('file.aar'))
+
+//El group id, suele ser com.facephi
+def group_id = 'com.facephi'
+
+//id del artefacto
+def artifactid = 'paquete1'
+
+//version que queremos subir del mismo
+version = '1.0.0'
+
+//El paquete final que se subiría siguiendo esta configuración quedaría tal que
+// com.facephi:paquete1:1.0.0
+
+dependencies {
+
+    //Aqui se indicarán las dependencias en caso de necesitar,
+    //las dependencias se importan como en el ejemplo de abajo
+    /*
+    implementation 'androidx.multidex:multidex:2.0.1'
+     */
+
+}
+//FINAL MODIFICAR
+
+
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
@@ -23,19 +55,9 @@ android {
 publishing {
     publications {
         aar(MavenPublication) {
-
-            //INICIO MODIFICAR
-            //Especificamos el groupID, normalmente es com.facephi
-            groupId = 'como.facephi'
-            //Especificamos el artefacto
-            artifactId = 'hello'
-            //Especificamos la version
-            version = '1.0.1'
-            //Indicamos donde está el aar que queremos subir, se deberia
-            //poner en la carpeta build/libs
-            artifact file("$buildDir/libs/file.aar")
-            //FINAL MODIFICAR
-
+            groupId group_id
+            artifactId artifactid
+            artifact publishArtifact
 
             pom {
                 withXml {
@@ -72,20 +94,6 @@ publishing {
         }
     }
 }
-
-
-//INICIO MODIFICAR
-dependencies {
-
-    //Aqui se indicarán las dependencias en caso de necesitar,
-    //las dependencias se importan como en el ejemplo de abajo
-
-    /*
-    implementation 'androidx.multidex:multidex:2.0.1'
-     */
-
-}
-//FINAL MODIFICAR
 
 buildscript {
     repositories {
