@@ -11,13 +11,13 @@ def publishArtifact = artifacts.add("default", file('file.aar'))
 def group_id = 'com.facephi'
 
 //id del artefacto
-def artifactid = 'paquete4'
+def artifactid = 'paquete2'
 
 //version que queremos subir del mismo
-version = '1.0.1'
+version = '1.0.0'
 
 //El paquete final que se subiría siguiendo esta configuración quedaría tal que
-// com.facephi:paquete1:1.0.0
+// com.facephi:paquete2:1.0.0
 
 
 dependencies {
