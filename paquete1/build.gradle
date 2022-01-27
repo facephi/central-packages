@@ -1,31 +1,36 @@
 apply plugin: "maven-publish"
 apply plugin: "com.android.library"
-
-
 configurations.maybeCreate("default")
 
-//MODIFICAR INICIO
-def publishArtifact2 = artifacts.add("default", file('fphi-core-widget-android.aar'))
+//MODIFICAR COMIENZO
 
+//Indicar el nombre del aar que vamos a subir
+def publishArtifact = artifacts.add("default", file('file.aar'))
 
+//El group id, suele ser com.facephi
 ext.group_id = 'com.facephi'
+
+//id del artefacto
 ext.artifactId = 'paquete1'
+
+//version que queremos subir del mismo
 version = '1.0.0'
 
+//El paquete final que se subiría siguiendo esta configuración quedaría tal que
+// com.facephi:paquete1:1.0.0
+
 dependencies {
-
-    //Aqui se indicarán las dependencias en caso de necesitar,
-    //las dependencias se importan como en el ejemplo de abajo
-
+    //Aqui se indicarán las dependencias en caso de necesitar
+    //Las dependencias se importan como en el ejemplo de abajo
+    /*
     implementation "androidx.multidex:multidex:2.0.1"
-
+    */
 }
 
 //MODIFICAR FINAL
 
 
 android {
-   
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
@@ -45,14 +50,10 @@ android {
     }
 }
 
-
-
 publishing {
     publications {
-
         aar(MavenPublication) {
-
-            artifact publishArtifact2
+            artifact publishArtifact
             pom {
                 withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
@@ -73,24 +74,18 @@ publishing {
                         }
                     }
                 }
-            
+            }
         }
     }
-}
     repositories {
         maven {
             name = "GitHubPackages"
-
             url = uri("https://maven.pkg.github.com/facephi/central-packages")
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
                 password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
             }
         }
-     }
-    
+    }
 }
-
-
-
 
