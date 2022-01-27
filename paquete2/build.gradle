@@ -4,7 +4,7 @@ apply plugin: "com.android.library"
 
 configurations.maybeCreate("default")
 def publishArtifact2 = artifacts.add("default", file('fphi-core-widget-android.aar'))
-ext.libVersion = "0.1.2-SNAPSHOT"
+version = '1.0.0'
 ext.group_id = 'com.facephi'
 ext.artifactId = 'paquete2'
 
