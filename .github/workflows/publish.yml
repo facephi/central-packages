@@ -8,7 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: shallwefootball/s3-upload-action@master
-        - run: ls
+      - name: ls
+        run: ls
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
