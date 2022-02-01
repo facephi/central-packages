@@ -1,7 +1,6 @@
 name: Upload to S3
 
 on: [push]
-
 jobs:
   upload:
     runs-on: ubuntu-latest
