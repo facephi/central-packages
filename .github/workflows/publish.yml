@@ -8,10 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: shallwefootball/s3-upload-action@master
-      - name: ls
-        run: ls
-        with:
+      with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: ${{ secrets.AWS_BUCKET }}
-          source_dir: './prueba/App.xcframework.zip'
+      - name: ls
+        run: ls
+        
