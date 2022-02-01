@@ -13,7 +13,7 @@ jobs:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_s3_bucket: ${{ secrets.AWS_BUCKET }}
-         run: |
+        run: |
           sudo apt-get update && sudo apt-get -y install awscli
           aws configure set aws_access_key_id $aws_key_id
           aws configure set aws_secret_access_key $aws_secret_access_key 
