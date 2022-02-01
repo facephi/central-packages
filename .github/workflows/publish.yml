@@ -10,8 +10,8 @@ jobs:
         shell: bash
         env:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_P2 }}
-          aws_s3_bucket: ${{ secrets.AWS_BUCKET_P2 }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_P }}
+          aws_s3_bucket: ${{ secrets.AWS_BUCKET_P }}
         run: |
           sudo apt-get update && sudo apt-get -y install awscli
           aws configure set aws_access_key_id $aws_key_id
