@@ -12,7 +12,7 @@ jobs:
         shell: bash
         env:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
-          ANDROID_VERSION: echo "$(<androidversion.txt )"
+          ANDROID_VERSION: 1.0
         run: |
           echo echo "$(<androidversion.txt )" >> $ANDROID_VERSION
           echo $ANDROID_VERSION
