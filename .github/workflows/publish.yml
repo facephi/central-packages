@@ -17,7 +17,7 @@ jobs:
           echo "carpeta despues de clonar"
           ls
           cd central-packages/
-          ../Podfile Podfile
+          cp ../Podfile Podfile
           git add .
           git commit -m "Automatic publish from github.com/project"
           git push 
