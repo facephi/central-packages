@@ -14,8 +14,9 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
           
-          echo "$(<androidversion.txt )" = $ANDROID_VERSION
-          $ANDROID_VERSION = echo "$(<androidversion.txt )"
+          ANDROID = echo "$(<androidversion.txt )"
+          echo ANDROID
+          #$ANDROID_VERSION = echo "$(<androidversion.txt )"
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
           cd central-packages/
           cp ../Podfile Podfile
