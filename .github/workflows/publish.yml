@@ -18,6 +18,8 @@ jobs:
           ls
           cd central-packages/
           cp ../Podfile Podfile
+          git config --global user.email joseantoniojuan@facephi.com
+          git config --global user.name "Jose Antonio"
           git add .
           git commit -m "Automatic publish from github.com/project"
           git push 
