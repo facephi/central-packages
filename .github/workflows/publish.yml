@@ -1,6 +1,8 @@
 name: Upload to S3
 
 on: [push]
+env:
+  ANDROID_VERSION: '1.0'
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -11,7 +13,8 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
-          export ANDROID_VERSION:echo "$(<androidversion.txt )"
+          
+          echo "$(<androidversion.txt )" = $ANDROID_VERSION
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
           cd central-packages/
           cp ../Podfile Podfile
