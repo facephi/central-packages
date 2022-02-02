@@ -6,16 +6,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: copy file to  s3
+      - name: copy file to github repo
         shell: bash
         env:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_s3_bucket: ${{ secrets.AWS_BUCKET }}
+          API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
-          sudo apt-get update && sudo apt-get -y install awscli
-          aws configure set aws_access_key_id $aws_key_id
-          aws configure set aws_secret_access_key $aws_secret_access_key 
-          aws configure set default.region us-east-1
-          aws s3 cp sdkonboardingflutter.zip s3://$aws_s3_bucket/
+          git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
+          cd central-packages/
+          cp ../Podfile Podfile
+          git add .
+          git commit -m "Automatic publish from github.com/project"
+          git push 
+          git tag automatic
+          git push --tags
       
+     
