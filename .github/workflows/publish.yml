@@ -11,9 +11,16 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
+          echo "carpeta antes de clonar"
+          ls
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
+          echo "carpeta despues de clonar"
           ls
           cd central-packages/
+          echo "carpeta despues de cd central-packages"
+          ls
+          cd ../
+          echo "carpeta vuelta atras"
           ls
           cp ./../Podfile Podfile
           git add .
