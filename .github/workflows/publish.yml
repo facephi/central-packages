@@ -14,18 +14,20 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
           ANDROID_VERSION: 1.0
         run: |
-          echo echo "$(<androidversion.txt )" >> $ANDROID_VERSION
-          echo $ANDROID_VERSION
+
+          VERSION=$(echo "$(<androidversion.txt )")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo $VERSION
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
           cd central-packages/
           cp ../Podfile Podfile
-          echo $ANDROID_VERSION
+          echo $VERSION
           git config --global user.email joseantoniojuan@facephi.com
           git config --global user.name "Jose Antonio"
           git add .
-          git commit -m "Upload new android version $ANDROID"
+          git commit -m "Upload new android version $VERSION"
           git push 
-          git tag $ANDROID_VERSION
+          git tag $VERSION
           git push --tags
       
      
