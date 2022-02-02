@@ -18,6 +18,7 @@ jobs:
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
           cd central-packages/
           cp ../Podfile Podfile
+          echo $ANDROID_VERSION
           git config --global user.email joseantoniojuan@facephi.com
           git config --global user.name "Jose Antonio"
           git add .
