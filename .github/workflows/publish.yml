@@ -12,8 +12,10 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
+          ls
           cd central-packages/
-          cp ../Podfile Podfile
+          ls
+          cp ./../Podfile Podfile
           git add .
           git commit -m "Automatic publish from github.com/project"
           git push 
