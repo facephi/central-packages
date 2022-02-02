@@ -14,6 +14,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
           ANDROID_VERSION: echo "$(<androidversion.txt )"
         run: |
+          echo echo "$(<androidversion.txt )" >> $ANDROID_VERSION
           echo $ANDROID_VERSION
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
           cd central-packages/
