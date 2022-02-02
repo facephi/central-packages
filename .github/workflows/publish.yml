@@ -11,19 +11,16 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.TOKEN }}
         run: |
-          echo "carpeta antes de clonar"
-          ls
+          EXPORT ANDROID_VERSION = echo "$(<androidversion.txt )"
           git clone https://.:${{ secrets.TOKEN }}@github.com//facephi/central-packages.git
-          echo "carpeta despues de clonar"
-          ls
           cd central-packages/
           cp ../Podfile Podfile
           git config --global user.email joseantoniojuan@facephi.com
           git config --global user.name "Jose Antonio"
           git add .
-          git commit -m "Automatic publish from github.com/project"
+          git commit -m "Upload new android version $ANDROID_VERSION"
           git push 
-          git tag automatic
+          git tag $ANDROID_VERSION
           git push --tags
       
      
