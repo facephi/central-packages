@@ -1,21 +1,30 @@
 name: Upload to S3
 
-on: [push]
+on: 
+  push:
+    tags:
+      - a.*
+      - i.*
 jobs:
-  upload:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: copy file to  s3
-        shell: bash
-        env:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_s3_bucket: ${{ secrets.AWS_BUCKET }}
-        run: |
-          sudo apt-get update && sudo apt-get -y install awscli
-          aws configure set aws_access_key_id $aws_key_id
-          aws configure set aws_secret_access_key $aws_secret_access_key 
-          aws configure set default.region us-east-1
-          aws s3 cp sdkonboardingflutter.zip s3://$aws_s3_bucket/
-      
+    upload:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: zip dependencias
+          shell: bash
+          run: |
+              sudo apt-get update && sudo apt-get -y install zip unzip
+              zip -r prueba.zip repo/
+        
+        - name: copy file to  s3
+          shell: bash
+          env:
+            aws_key_id: ${{ secrets.AWS_KEY_ID }}
+            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws_s3_bucket: ${{ secrets.AWS_BUCKET }}
+          run: |
+              sudo apt-get update && sudo apt-get -y install awscli
+              aws configure set aws_access_key_id $aws_key_id
+              aws configure set aws_secret_access_key $aws_secret_access_key 
+              aws configure set default.region us-east-1
+              aws s3 cp prueba.zip s3://$aws_s3_bucket/
