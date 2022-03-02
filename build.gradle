@@ -12,7 +12,7 @@ def publishArtifact = artifacts.add("default", file('file.aar'))
 def group_id = 'com.facephi'
 
 //id del artefacto
-def artifactid = 'paquete1-prueba'
+def artifactid = 'paquete2-prueba'
 
 //version que queremos subir del mismo
 version = '1.0.0'
